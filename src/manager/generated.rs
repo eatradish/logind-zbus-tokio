@@ -138,7 +138,7 @@ trait Manager {
         who: &str,
         why: &str,
         mode: &str,
-    ) -> zbus::Result<std::os::unix::io::RawFd>;
+    ) -> zbus::Result<zbus::zvariant::OwnedFd>;
 
     /// KillSession method
     #[inline]
