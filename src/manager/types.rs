@@ -90,6 +90,12 @@ enum_impl_str_conv!(IsSupported, {
 #[zvariant(signature = "s")]
 pub struct InhibitTypes(Vec<InhibitType>);
 
+impl InhibitTypes {
+    pub fn types(&self) -> &Vec<InhibitType> {
+        &self.0
+    }
+}
+
 impl FromStr for InhibitTypes {
     type Err = fdo::Error;
 
@@ -181,6 +187,32 @@ pub struct Inhibitor {
     mode: Mode,
     user_id: u32,
     process_id: u32,
+}
+
+impl Inhibitor {
+    pub fn what(&self) -> &InhibitTypes {
+        &self.what
+    }
+
+    pub fn who(&self) -> &str {
+        &self.who
+    }
+
+    pub fn why(&self) -> &str {
+        &self.why
+    }
+
+    pub fn mode(&self) -> Mode {
+        self.mode
+    }
+
+    pub fn user_id(&self) -> u32 {
+        self.user_id
+    }
+
+    pub fn process_id(&self) -> u32 {
+        self.process_id
+    }
 }
 
 /// Used to determine behaviour of inhibitors
