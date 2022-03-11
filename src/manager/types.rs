@@ -91,6 +91,10 @@ enum_impl_str_conv!(IsSupported, {
 pub struct InhibitTypes(Vec<InhibitType>);
 
 impl InhibitTypes {
+    pub fn new(inhibit_types: &Vec<InhibitType>) -> InhibitTypes {
+        Self(inhibit_types.clone())
+    }
+
     pub fn types(&self) -> &Vec<InhibitType> {
         &self.0
     }
