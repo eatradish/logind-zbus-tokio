@@ -190,6 +190,17 @@ pub struct Inhibitor {
 }
 
 impl Inhibitor {
+    pub fn new(what: InhibitTypes, who: String, why: String, mode: Mode, user_id: u32, process_id: u32) -> Inhibitor {
+        Inhibitor {
+            what,
+            who,
+            why,
+            mode,
+            user_id,
+            process_id
+        }
+    }
+
     pub fn what(&self) -> &InhibitTypes {
         &self.what
     }
