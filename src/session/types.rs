@@ -66,13 +66,14 @@ enum_impl_str_conv!(SessionType, {
 
 #[derive(Debug, PartialEq, Type, Serialize, Deserialize)]
 pub struct Device {
-    file_descriptor: std::os::unix::io::RawFd,
+    file_descriptor: zvariant::OwnedFd,
     inactive: bool,
 }
 
 impl Device {
     pub fn file_descriptor(&self) -> std::os::unix::io::RawFd {
-        self.file_descriptor
+        use std::os::unix::io::AsRawFd;
+        self.file_descriptor.as_raw_fd()
     }
 
     pub fn inactive(&self) -> bool {

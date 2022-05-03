@@ -86,7 +86,7 @@ trait Session {
         &self,
         major: u32,
         minor: u32,
-        fd: std::os::unix::io::RawFd,
+        fd: zvariant::OwnedFd,
     ) -> zbus::Result<()>;
 
     /// Unlock signal

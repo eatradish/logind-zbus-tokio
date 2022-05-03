@@ -87,7 +87,7 @@ trait Manager {
     //     String,
     //     zvariant::OwnedObjectPath,
     //     String,
-    //     std::os::unix::io::RawFd,
+    //     zvariant::OwnedFd,
     //     u32,
     //     String,
     //     u32,
@@ -138,7 +138,7 @@ trait Manager {
         who: &str,
         why: &str,
         mode: &str,
-    ) -> zbus::Result<std::os::unix::io::RawFd>;
+    ) -> zbus::Result<zvariant::OwnedFd>;
 
     /// KillSession method
     #[inline]
