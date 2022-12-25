@@ -21,21 +21,15 @@ cache:
       - ./target/cranky
 
 stages:
-    - format
-    - check
+  - test
 
-format:
+test:
   except:
     - tags
   script:
     - echo "nightly" > rust-toolchain
     - rustup component add rustfmt
     - cargo fmt --check
-
-check:
-  except:
-    - tags
-  script:
     - rustup component add clippy
     - cargo check
     # TODO: make image with these inside
