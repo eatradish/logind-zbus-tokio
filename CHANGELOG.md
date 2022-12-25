@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [3.1.0] - 2022-12-25
+### Changed
+- Remove useless `IntoPath` trait and methods
+- Cleanup some useless return statements
+- Use clippy suggestions
+- Bump zbus dep
+
 # [3.0.0]
 ### Changed
 - Remove all wrapping as generated implementations are easily accessible now

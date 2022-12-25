@@ -3,7 +3,7 @@ use std::str::FromStr;
 use zbus::fdo;
 use zbus::zvariant::{OwnedObjectPath, OwnedValue, Structure, Type};
 
-use crate::{enum_impl_serde_str, enum_impl_str_conv, impl_try_from_owned_as_str, IntoPath};
+use crate::{enum_impl_serde_str, enum_impl_str_conv, impl_try_from_owned_as_str};
 
 #[derive(Debug, PartialEq, Eq, Clone, Type, Serialize, Deserialize)]
 pub struct User {
@@ -31,16 +31,6 @@ impl TryFrom<OwnedValue> for User {
             uid: <u32>::try_from(value.fields()[0].clone())?,
             path: <OwnedObjectPath>::try_from(value.fields()[1].clone())?,
         })
-    }
-}
-
-impl IntoPath for User {
-    fn into_path(&self) -> OwnedObjectPath {
-        self.path.clone()
-    }
-
-    fn into_path_ref(&self) -> &OwnedObjectPath {
-        &self.path
     }
 }
 

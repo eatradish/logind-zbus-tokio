@@ -12,13 +12,6 @@ pub mod seat;
 pub mod session;
 pub mod user;
 
-//const DEFAULT_DEST: &str = "org.freedesktop.login1";
-
-pub trait IntoPath {
-    fn into_path(&self) -> OwnedObjectPath;
-    fn into_path_ref(&self) -> &OwnedObjectPath;
-}
-
 pub struct TimeStamp(Duration);
 
 impl Deref for TimeStamp {
@@ -40,11 +33,11 @@ impl TryFrom<OwnedValue> for TimeStamp {
 
     fn try_from(value: OwnedValue) -> Result<Self, Self::Error> {
         let value = <u64>::try_from(value)?;
-        return Ok(Self(Duration::from_micros(value)));
+        Ok(Self(Duration::from_micros(value)))
     }
 }
 
-#[derive(Debug, PartialEq, Clone, Type, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Type, Serialize, Deserialize)]
 pub struct SomePath {
     /// The seat label
     id: String,
@@ -67,10 +60,10 @@ impl TryFrom<OwnedValue> for SomePath {
 
     fn try_from(value: OwnedValue) -> Result<Self, Self::Error> {
         let value = <Structure>::try_from(value)?;
-        return Ok(Self {
+        Ok(Self {
             id: <String>::try_from(value.fields()[0].clone())?,
             path: <OwnedObjectPath>::try_from(value.fields()[1].clone())?,
-        });
+        })
     }
 }
 

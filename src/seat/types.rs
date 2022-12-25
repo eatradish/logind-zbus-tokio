@@ -1,8 +1,6 @@
 use serde::{Deserialize, Serialize};
 use zbus::zvariant::{OwnedObjectPath, OwnedValue, Structure, Type};
 
-use crate::IntoPath;
-
 #[derive(Debug, PartialEq, Eq, Clone, Type, Serialize, Deserialize)]
 pub struct SessionPath {
     id: String,
@@ -25,19 +23,9 @@ impl TryFrom<OwnedValue> for SessionPath {
 
     fn try_from(value: OwnedValue) -> Result<Self, Self::Error> {
         let value = <Structure>::try_from(value)?;
-        return Ok(Self {
+        Ok(Self {
             id: <String>::try_from(value.fields()[0].clone())?,
             path: <OwnedObjectPath>::try_from(value.fields()[1].clone())?,
-        });
-    }
-}
-
-impl IntoPath for SessionPath {
-    fn into_path(&self) -> OwnedObjectPath {
-        self.path.clone()
-    }
-
-    fn into_path_ref(&self) -> &OwnedObjectPath {
-        &self.path
+        })
     }
 }

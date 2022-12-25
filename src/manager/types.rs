@@ -3,7 +3,7 @@ use std::str::FromStr;
 use zbus::fdo;
 use zbus::zvariant::{OwnedObjectPath, OwnedValue, Structure, Type};
 
-use crate::{enum_impl_serde_str, enum_impl_str_conv, IntoPath};
+use crate::{enum_impl_serde_str, enum_impl_str_conv};
 
 /// Basic user information
 #[derive(Debug, PartialEq, Eq, Clone, Type, Serialize, Deserialize)]
@@ -26,16 +26,6 @@ impl UserInfo {
     }
 
     pub fn path(&self) -> &OwnedObjectPath {
-        &self.path
-    }
-}
-
-impl IntoPath for UserInfo {
-    fn into_path(&self) -> OwnedObjectPath {
-        self.path.clone()
-    }
-
-    fn into_path_ref(&self) -> &OwnedObjectPath {
         &self.path
     }
 }
@@ -230,16 +220,6 @@ impl SessionInfo {
     }
 
     pub fn path(&self) -> &OwnedObjectPath {
-        &self.path
-    }
-}
-
-impl IntoPath for SessionInfo {
-    fn into_path(&self) -> OwnedObjectPath {
-        self.path.clone()
-    }
-
-    fn into_path_ref(&self) -> &OwnedObjectPath {
         &self.path
     }
 }
