@@ -1,4 +1,4 @@
-//! # DBus interface proxy for: `org.freedesktop.login1.Seat`
+//! # `DBus` interface proxy for: `org.freedesktop.login1.Seat`
 
 #![allow(non_snake_case)]
 

@@ -44,7 +44,7 @@ fn list_active_session_types() {
                 SessionType::MIR => assert_eq!(st, SessionType::MIR),
                 SessionType::TTY => assert_eq!(st, SessionType::TTY),
                 SessionType::Unspecified => {
-                    assert_eq!(st, SessionType::Unspecified)
+                    assert_eq!(st, SessionType::Unspecified);
                 }
             }
         }
@@ -107,7 +107,7 @@ fn timestamps_async() {
 
         let time2 = session.timestamp_monotonic().await.unwrap();
         assert!(time2.as_secs() > 0);
-    })
+    });
 }
 
 #[test]
@@ -132,12 +132,12 @@ fn list_active_session_types_async() {
                     SessionType::MIR => assert_eq!(st, SessionType::MIR),
                     SessionType::TTY => assert_eq!(st, SessionType::TTY),
                     SessionType::Unspecified => {
-                        assert_eq!(st, SessionType::Unspecified)
+                        assert_eq!(st, SessionType::Unspecified);
                     }
                 }
             }
         }
-    })
+    });
 }
 
 #[test]
@@ -178,5 +178,5 @@ fn properties_async() {
         assert!(session.type_().await.is_ok());
         assert!(session.user().await.is_ok());
         assert!(session.VTNr().await.is_ok());
-    })
+    });
 }

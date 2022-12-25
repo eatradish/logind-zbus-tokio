@@ -159,8 +159,8 @@ fn inhibitors() {
         if let zbus::Error::MethodError(_, data, _) = e {
             assert_eq!(
                 data,
-                Some("Delay inhibitors only supported for shutdown and sleep".to_string())
-            )
+                Some("Delay inhibitors only supported for shutdown and sleep".to_owned())
+            );
         }
     })
     .ok();

@@ -53,7 +53,7 @@ fn timestamps_async() {
             .unwrap();
 
         assert!(seat.active_session().await.is_ok());
-    })
+    });
 }
 
 #[test]
@@ -77,5 +77,5 @@ fn properties_async() {
         assert!(seat.idle_since_hint().await.is_ok());
         assert!(seat.idle_since_hint_monotonic().await.is_ok());
         assert!(seat.sessions().await.is_ok());
-    })
+    });
 }

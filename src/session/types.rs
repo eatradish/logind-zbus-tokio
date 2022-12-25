@@ -26,7 +26,7 @@ impl TryFrom<OwnedValue> for User {
     type Error = zbus::Error;
 
     fn try_from(value: OwnedValue) -> Result<Self, Self::Error> {
-        let value = <Structure>::try_from(value)?;
+        let value = <Structure<'_>>::try_from(value)?;
         Ok(Self {
             uid: <u32>::try_from(value.fields()[0].clone())?,
             path: <OwnedObjectPath>::try_from(value.fields()[1].clone())?,

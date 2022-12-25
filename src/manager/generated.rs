@@ -1,4 +1,4 @@
-//! # DBus interface proxy for: `org.freedesktop.login1.Manager`
+//! # `DBus` interface proxy for: `org.freedesktop.login1.Manager`
 
 #![allow(non_snake_case)]
 
