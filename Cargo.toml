@@ -1,6 +1,6 @@
 [package]
 name = "logind-zbus"
-version = "3.1.0"
+version = "3.1.1"
 license = "MPL-2.0"
 authors = ["Luke D Jones <luke@ljones.dev>"]
 edition = "2021"
@@ -13,8 +13,8 @@ keywords = ["systemd", "logind", "zbus"]
 categories = ["os::unix-apis"]
 
 [dependencies]
-serde = "^1.0"
-zbus = "^3.6.2"
+serde = "1.0"
+zbus = "~3.13.1"
 
 [dev-dependencies]
 futures-lite = "1.12.0"
