@@ -2,13 +2,13 @@
 
 #![allow(non_snake_case)]
 
-use zbus::dbus_proxy;
+use zbus::proxy;
 
 use crate::{SomePath, TimeStamp};
 
 use super::{Device, SessionClass, SessionState, SessionType, User};
 
-#[dbus_proxy(
+#[proxy(
     interface = "org.freedesktop.login1.Session",
     default_service = "org.freedesktop.login1",
     default_path = "/org/freedesktop/login1"
@@ -71,17 +71,17 @@ trait Session {
     fn unlock(&self) -> zbus::Result<()>;
 
     /// Lock signal
-    #[dbus_proxy(signal)]
+    #[zbus(signal)]
     #[inline]
     fn lock(&self) -> zbus::Result<()>;
 
     /// PauseDevice signal
-    #[dbus_proxy(signal)]
+    #[zbus(signal)]
     #[inline]
     fn pause_device(&self, major: u32, minor: u32, type_: &str) -> zbus::Result<()>;
 
     /// ResumeDevice signal
-    #[dbus_proxy(signal)]
+    #[zbus(signal)]
     #[inline]
     fn resume_device(
         &self,
@@ -91,132 +91,132 @@ trait Session {
     ) -> zbus::Result<()>;
 
     /// Unlock signal
-    #[dbus_proxy(signal)]
+    #[zbus(signal)]
     #[inline]
     fn unlock(&self) -> zbus::Result<()>;
 
     /// Active property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn active(&self) -> zbus::Result<bool>;
 
     /// Audit property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn audit(&self) -> zbus::Result<u32>;
 
     /// Class property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn class(&self) -> zbus::Result<SessionClass>;
 
     /// Desktop property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn desktop(&self) -> zbus::Result<String>;
 
     /// Display property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn display(&self) -> zbus::Result<String>;
 
     /// Id property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn id(&self) -> zbus::Result<String>;
 
     /// IdleHint property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn idle_hint(&self) -> zbus::Result<bool>;
 
     /// IdleSinceHint property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn idle_since_hint(&self) -> zbus::Result<TimeStamp>;
 
     /// IdleSinceHintMonotonic property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn idle_since_hint_monotonic(&self) -> zbus::Result<TimeStamp>;
 
     /// Leader property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn leader(&self) -> zbus::Result<u32>;
 
     /// LockedHint property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn locked_hint(&self) -> zbus::Result<bool>;
 
     /// Name property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn name(&self) -> zbus::Result<String>;
 
     /// Remote property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn remote(&self) -> zbus::Result<bool>;
 
     /// RemoteHost property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn remote_host(&self) -> zbus::Result<String>;
 
     /// RemoteUser property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn remote_user(&self) -> zbus::Result<String>;
 
     /// Scope property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn scope(&self) -> zbus::Result<String>;
 
     /// Seat property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn seat(&self) -> zbus::Result<SomePath>;
 
     /// Service property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn service(&self) -> zbus::Result<String>;
 
     /// State property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn state(&self) -> zbus::Result<SessionState>;
 
     /// TTY property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn TTY(&self) -> zbus::Result<String>;
 
     /// Timestamp property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn timestamp(&self) -> zbus::Result<TimeStamp>;
 
     /// TimestampMonotonic property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn timestamp_monotonic(&self) -> zbus::Result<TimeStamp>;
 
     /// Type property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn type_(&self) -> zbus::Result<SessionType>;
 
     /// User property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn user(&self) -> zbus::Result<User>;
 
     /// VTNr property
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     #[inline]
     fn VTNr(&self) -> zbus::Result<u32>;
 }

@@ -24,8 +24,8 @@ impl TryFrom<OwnedValue> for SessionPath {
     fn try_from(value: OwnedValue) -> Result<Self, Self::Error> {
         let value = <Structure<'_>>::try_from(value)?;
         Ok(Self {
-            id: <String>::try_from(value.fields()[0].clone())?,
-            path: <OwnedObjectPath>::try_from(value.fields()[1].clone())?,
+            id: <String>::try_from(value.fields()[0].try_clone()?)?,
+            path: <OwnedObjectPath>::try_from(value.fields()[1].try_clone()?)?,
         })
     }
 }
