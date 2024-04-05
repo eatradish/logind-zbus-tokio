@@ -177,9 +177,9 @@ fn can_do() {
 
     let res = manager.can_hybrid_sleep();
     assert!(res.is_ok());
-    assert_eq!(res, zbus::Result::Ok(IsSupported::Yes));
+    assert_eq!(res, zbus::Result::Ok(IsSupported::NA));
 
     let res = manager.can_hibernate();
     assert!(res.is_ok());
-    assert_eq!(res, zbus::Result::Ok(IsSupported::Yes));
+    assert_eq!(res, zbus::Result::Ok(IsSupported::NA));
 }

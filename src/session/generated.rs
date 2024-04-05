@@ -2,7 +2,7 @@
 
 #![allow(non_snake_case)]
 
-use zbus::proxy;
+use zbus::{proxy, zvariant::OwnedFd};
 
 use crate::{SomePath, TimeStamp};
 
@@ -83,12 +83,7 @@ trait Session {
     /// ResumeDevice signal
     #[zbus(signal)]
     #[inline]
-    fn resume_device(
-        &self,
-        major: u32,
-        minor: u32,
-        fd: zvariant::OwnedFd,
-    ) -> zbus::Result<()>;
+    fn resume_device(&self, major: u32, minor: u32, fd: OwnedFd) -> zbus::Result<()>;
 
     /// Unlock signal
     #[zbus(signal)]

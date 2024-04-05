@@ -81,8 +81,8 @@ enum_impl_str_conv!(IsSupported, {
 pub struct InhibitTypes(Vec<InhibitType>);
 
 impl InhibitTypes {
-    pub fn new(inhibit_types: &Vec<InhibitType>) -> InhibitTypes {
-        Self(inhibit_types.clone())
+    pub fn new(inhibit_types: &[InhibitType]) -> InhibitTypes {
+        Self(inhibit_types.to_vec())
     }
 
     pub fn types(&self) -> &Vec<InhibitType> {
@@ -184,14 +184,21 @@ pub struct Inhibitor {
 }
 
 impl Inhibitor {
-    pub fn new(what: InhibitTypes, who: String, why: String, mode: Mode, user_id: u32, process_id: u32) -> Inhibitor {
+    pub fn new(
+        what: InhibitTypes,
+        who: String,
+        why: String,
+        mode: Mode,
+        user_id: u32,
+        process_id: u32,
+    ) -> Inhibitor {
         Inhibitor {
             what,
             who,
             why,
             mode,
             user_id,
-            process_id
+            process_id,
         }
     }
 

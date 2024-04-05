@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [4.0.1] - 2024-04-06
+## Changed
+- Use OwnedFd for file descriptors sent over the wire (Brian Tarricone)
+- Add accessors for Inhibitor and InhibitTypes (Róbert Selvek)
+
 # [4.0.0] - 2024-02-21
 ### Changed
 - Update zbus to 4.0.1

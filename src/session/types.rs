@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 use zbus::fdo;
-use zbus::zvariant::{OwnedObjectPath, OwnedValue, Structure, Type};
+use zbus::zvariant::{OwnedFd, OwnedObjectPath, OwnedValue, Structure, Type};
 
 use crate::{enum_impl_serde_str, enum_impl_str_conv, impl_try_from_owned_as_str};
 
@@ -56,7 +56,7 @@ enum_impl_str_conv!(SessionType, {
 
 #[derive(Debug, PartialEq, Eq, Type, Serialize, Deserialize)]
 pub struct Device {
-    file_descriptor: zvariant::OwnedFd,
+    file_descriptor: OwnedFd,
     inactive: bool,
 }
 
