@@ -20,13 +20,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 session_proxy.type_().and_then(|typ| {
                     match typ {
                         SessionType::X11 | SessionType::Wayland | SessionType::MIR => {
-                            session_proxy.active().and_then(|active| {
+                            session_proxy.active().map(|active| {
                                 if active {
                                     println!("Active graphical session found");
                                 } else {
                                     println!("Inactive graphical session found");
                                 }
-                                Ok(())
                             })?;
                         }
                         SessionType::TTY | SessionType::Unspecified => {}

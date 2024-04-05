@@ -20,11 +20,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build()?;
 
     if let Ok(mut sig_iter) = session.receive_unlock() {
-        while let Some(_) = sig_iter.next() {
+        if sig_iter.next().is_some() {
             println!("Unlocked");
-            break;
         }
     }
-
     Ok(())
 }

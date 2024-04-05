@@ -6,18 +6,11 @@ use std::{
 };
 
 use serde::{Deserialize, Serialize};
-use zvariant::{OwnedObjectPath, OwnedValue, Structure, Type};
+use zbus::zvariant::{OwnedObjectPath, OwnedValue, Structure, Type};
 pub mod manager;
 pub mod seat;
 pub mod session;
 pub mod user;
-
-//const DEFAULT_DEST: &str = "org.freedesktop.login1";
-
-pub trait IntoPath {
-    fn into_path(&self) -> OwnedObjectPath;
-    fn into_path_ref(&self) -> &OwnedObjectPath;
-}
 
 pub struct TimeStamp(Duration);
 
@@ -40,11 +33,11 @@ impl TryFrom<OwnedValue> for TimeStamp {
 
     fn try_from(value: OwnedValue) -> Result<Self, Self::Error> {
         let value = <u64>::try_from(value)?;
-        return Ok(Self(Duration::from_micros(value)));
+        Ok(Self(Duration::from_micros(value)))
     }
 }
 
-#[derive(Debug, PartialEq, Clone, Type, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Type, Serialize, Deserialize)]
 pub struct SomePath {
     /// The seat label
     id: String,
@@ -66,11 +59,11 @@ impl TryFrom<OwnedValue> for SomePath {
     type Error = zbus::Error;
 
     fn try_from(value: OwnedValue) -> Result<Self, Self::Error> {
-        let value = <Structure>::try_from(value)?;
-        return Ok(Self {
-            id: <String>::try_from(value.fields()[0].clone())?,
-            path: <OwnedObjectPath>::try_from(value.fields()[1].clone())?,
-        });
+        let value = <Structure<'_>>::try_from(value)?;
+        Ok(Self {
+            id: <String>::try_from(value.fields()[0].try_clone()?)?,
+            path: <OwnedObjectPath>::try_from(value.fields()[1].try_clone()?)?,
+        })
     }
 }
 

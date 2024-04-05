@@ -159,8 +159,8 @@ fn inhibitors() {
         if let zbus::Error::MethodError(_, data, _) = e {
             assert_eq!(
                 data,
-                Some("Delay inhibitors only supported for shutdown and sleep".to_string())
-            )
+                Some("Delay inhibitors only supported for shutdown and sleep".to_owned())
+            );
         }
     })
     .ok();
@@ -177,9 +177,9 @@ fn can_do() {
 
     let res = manager.can_hybrid_sleep();
     assert!(res.is_ok());
-    assert_eq!(res, zbus::Result::Ok(IsSupported::NA));
+    assert_eq!(res, zbus::Result::Ok(IsSupported::Yes));
 
     let res = manager.can_hibernate();
     assert!(res.is_ok());
-    assert_eq!(res, zbus::Result::Ok(IsSupported::NA));
+    assert_eq!(res, zbus::Result::Ok(IsSupported::Yes));
 }

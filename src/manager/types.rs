@@ -1,12 +1,12 @@
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 use zbus::fdo;
-use zvariant::{OwnedObjectPath, OwnedValue, Structure, Type};
+use zbus::zvariant::{OwnedObjectPath, OwnedValue, Structure, Type};
 
-use crate::{enum_impl_serde_str, enum_impl_str_conv, IntoPath};
+use crate::{enum_impl_serde_str, enum_impl_str_conv};
 
 /// Basic user information
-#[derive(Debug, PartialEq, Clone, Type, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Type, Serialize, Deserialize)]
 pub struct UserInfo {
     /// User ID
     uid: u32,
@@ -30,17 +30,7 @@ impl UserInfo {
     }
 }
 
-impl IntoPath for UserInfo {
-    fn into_path(&self) -> OwnedObjectPath {
-        self.path.clone()
-    }
-
-    fn into_path_ref(&self) -> &OwnedObjectPath {
-        &self.path
-    }
-}
-
-#[derive(Debug, PartialEq, Clone, Type, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Type, Serialize, Deserialize)]
 pub struct ScheduledShutdown {
     /// Name of the shutdown
     id: String,
@@ -62,15 +52,15 @@ impl TryFrom<OwnedValue> for ScheduledShutdown {
     type Error = zbus::Error;
 
     fn try_from(value: OwnedValue) -> Result<Self, Self::Error> {
-        let value = <Structure>::try_from(value)?;
-        return Ok(Self {
-            id: <String>::try_from(value.fields()[0].clone())?,
-            time: <u64>::try_from(value.fields()[1].clone())?,
-        });
+        let value = <Structure<'_>>::try_from(value)?;
+        Ok(Self {
+            id: <String>::try_from(value.fields()[0].try_clone()?)?,
+            time: <u64>::try_from(value.fields()[1].try_clone()?)?,
+        })
     }
 }
 
-#[derive(Debug, PartialEq, Clone, Copy, Type)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Type)]
 #[zvariant(signature = "s")]
 pub enum IsSupported {
     NA,
@@ -86,9 +76,19 @@ enum_impl_str_conv!(IsSupported, {
     "challenge": Challenge,
 });
 
-#[derive(Debug, PartialEq, Clone, Type)]
+#[derive(Debug, PartialEq, Eq, Clone, Type)]
 #[zvariant(signature = "s")]
 pub struct InhibitTypes(Vec<InhibitType>);
+
+impl InhibitTypes {
+    pub fn new(inhibit_types: &Vec<InhibitType>) -> InhibitTypes {
+        Self(inhibit_types.clone())
+    }
+
+    pub fn types(&self) -> &Vec<InhibitType> {
+        &self.0
+    }
+}
 
 impl FromStr for InhibitTypes {
     type Err = fdo::Error;
@@ -147,7 +147,7 @@ impl<'de> Deserialize<'de> for InhibitTypes {
     }
 }
 
-#[derive(Debug, PartialEq, Copy, Clone, Type)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Type)]
 #[zvariant(signature = "s")]
 pub enum InhibitType {
     Shutdown,
@@ -169,7 +169,7 @@ enum_impl_str_conv!(InhibitType, {
     "handle-lid-switch": HandleLidSwitch,
 });
 
-#[derive(Debug, PartialEq, Clone, Type, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Type, Serialize, Deserialize)]
 pub struct Inhibitor {
     /// What this lock is inhibiting
     what: InhibitTypes,
@@ -183,8 +183,45 @@ pub struct Inhibitor {
     process_id: u32,
 }
 
+impl Inhibitor {
+    pub fn new(what: InhibitTypes, who: String, why: String, mode: Mode, user_id: u32, process_id: u32) -> Inhibitor {
+        Inhibitor {
+            what,
+            who,
+            why,
+            mode,
+            user_id,
+            process_id
+        }
+    }
+
+    pub fn what(&self) -> &InhibitTypes {
+        &self.what
+    }
+
+    pub fn who(&self) -> &str {
+        &self.who
+    }
+
+    pub fn why(&self) -> &str {
+        &self.why
+    }
+
+    pub fn mode(&self) -> Mode {
+        self.mode
+    }
+
+    pub fn user_id(&self) -> u32 {
+        self.user_id
+    }
+
+    pub fn process_id(&self) -> u32 {
+        self.process_id
+    }
+}
+
 /// Used to determine behaviour of inhibitors
-#[derive(Debug, PartialEq, Copy, Clone, Type)]
+#[derive(Debug, PartialEq, Eq, Copy, Clone, Type)]
 #[zvariant(signature = "s")]
 pub enum Mode {
     /// Inhibitor is mandatory
@@ -198,7 +235,7 @@ enum_impl_str_conv!(Mode, {
     "delay": Delay,
 });
 
-#[derive(Debug, PartialEq, Type, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Type, Serialize, Deserialize)]
 pub struct SessionInfo {
     /// Session ID
     sid: String,
@@ -230,16 +267,6 @@ impl SessionInfo {
     }
 
     pub fn path(&self) -> &OwnedObjectPath {
-        &self.path
-    }
-}
-
-impl IntoPath for SessionInfo {
-    fn into_path(&self) -> OwnedObjectPath {
-        self.path.clone()
-    }
-
-    fn into_path_ref(&self) -> &OwnedObjectPath {
         &self.path
     }
 }

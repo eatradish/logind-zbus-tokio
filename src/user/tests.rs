@@ -2,7 +2,6 @@ use crate::manager::ManagerProxy;
 use crate::manager::ManagerProxyBlocking;
 use crate::user::UserProxy;
 use crate::user::UserProxyBlocking;
-use crate::IntoPath;
 use futures_lite::future;
 
 #[test]
@@ -11,7 +10,7 @@ fn timestamps() {
     let manager = ManagerProxyBlocking::new(&connection).unwrap();
     let users = manager.list_users().unwrap();
     let user = UserProxyBlocking::builder(&connection)
-        .path(users[0].into_path_ref())
+        .path(users[0].path())
         .unwrap()
         .build()
         .unwrap();
@@ -29,7 +28,7 @@ fn properties() {
     let manager = ManagerProxyBlocking::new(&connection).unwrap();
     let users = manager.list_users().unwrap();
     let user = UserProxyBlocking::builder(&connection)
-        .path(users[0].into_path_ref())
+        .path(users[0].path())
         .unwrap()
         .build()
         .unwrap();
@@ -60,7 +59,7 @@ fn timestamps_async() {
         let manager = ManagerProxy::new(&connection).await.unwrap();
         let users = manager.list_users().await.unwrap();
         let user = UserProxy::builder(&connection)
-            .path(users[0].into_path_ref())
+            .path(users[0].path())
             .unwrap()
             .build()
             .await
@@ -81,7 +80,7 @@ fn properties_async() {
         let manager = ManagerProxy::new(&connection).await.unwrap();
         let users = manager.list_users().await.unwrap();
         let user = UserProxy::builder(&connection)
-            .path(users[0].into_path_ref())
+            .path(users[0].path())
             .unwrap()
             .build()
             .await
