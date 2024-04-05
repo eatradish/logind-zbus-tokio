@@ -87,7 +87,7 @@ trait Manager {
     //     String,
     //     zvariant::OwnedObjectPath,
     //     String,
-    //     std::os::unix::io::RawFd,
+    //     zvariant::OwnedFd,
     //     u32,
     //     String,
     //     u32,
