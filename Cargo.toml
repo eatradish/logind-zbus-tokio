@@ -14,7 +14,7 @@ categories = ["os::unix-apis"]
 
 [dependencies]
 serde = "1.0"
-zbus = "~4.0.1"
+zbus = "~4.1.2"
 
 [dev-dependencies]
 futures-lite = "1.12.0"
