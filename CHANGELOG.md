@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [4.1.2] - 2024-04-06
+## Changed
+- Bump deps
+
 # [4.0.1] - 2024-04-06
 ## Changed
 - Use OwnedFd for file descriptors sent over the wire (Brian Tarricone)
