@@ -7,7 +7,7 @@ use zbus::{proxy, zvariant};
 
 use super::{
     types::{Inhibitor, IsSupported, ScheduledShutdown},
-    InhibitType, SessionInfo, UserInfo,
+    InhibitTypes, SessionInfo, UserInfo,
 };
 
 #[proxy(
@@ -134,7 +134,7 @@ trait Manager {
     #[inline]
     fn inhibit(
         &self,
-        what: InhibitType,
+        what: InhibitTypes,
         who: &str,
         why: &str,
         mode: &str,
