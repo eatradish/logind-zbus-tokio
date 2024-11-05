@@ -13,7 +13,7 @@ use super::SessionPath;
     default_service = "org.freedesktop.login1",
     default_path = "/org/freedesktop/login1"
 )]
-trait Seat {
+pub trait Seat {
     /// ActivateSession method
     #[inline]
     fn activate_session(&self, session_id: &str) -> zbus::Result<()>;
