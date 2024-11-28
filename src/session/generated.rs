@@ -13,7 +13,7 @@ use super::{Device, SessionClass, SessionState, SessionType, User};
     default_service = "org.freedesktop.login1",
     default_path = "/org/freedesktop/login1"
 )]
-trait Session {
+pub trait Session {
     /// Activate method
     #[inline]
     fn activate(&self) -> zbus::Result<()>;

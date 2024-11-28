@@ -15,7 +15,7 @@ use super::{
     default_service = "org.freedesktop.login1",
     default_path = "/org/freedesktop/login1"
 )]
-trait Manager {
+pub trait Manager {
     /// ActivateSession method
     #[inline]
     fn activate_session(&self, session_id: &str) -> zbus::Result<()>;

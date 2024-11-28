@@ -13,7 +13,7 @@ use super::UserState;
     default_service = "org.freedesktop.login1",
     default_path = "/org/freedesktop/login1"
 )]
-trait User {
+pub trait User {
     /// Kill method
     #[inline]
     fn kill(&self, signal_number: i32) -> zbus::Result<()>;
