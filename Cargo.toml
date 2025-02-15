@@ -1,6 +1,6 @@
 [package]
 name = "logind-zbus"
-version = "5.1.0"
+version = "5.2.0"
 license = "MPL-2.0"
 authors = ["Luke D Jones <luke@ljones.dev>"]
 edition = "2021"
@@ -14,7 +14,7 @@ categories = ["os::unix-apis"]
 
 [dependencies]
 serde = "1.0"
-zbus = "5.1"
+zbus = "5.5.0"
 
 [dev-dependencies]
 futures-lite = "2.5.0"
