@@ -135,6 +135,7 @@ macro_rules! enum_impl_str_conv {
         }
 }}
 
+#[cfg(not(feature = "tokio"))]
 #[cfg(test)]
 mod tests {
     use crate::{manager::ManagerProxyBlocking, session::SessionProxyBlocking};

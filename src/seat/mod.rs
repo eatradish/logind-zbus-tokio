@@ -1,6 +1,7 @@
 mod generated;
 mod types;
 
+#[cfg(not(feature = "tokio"))]
 #[cfg(test)]
 mod tests;
 

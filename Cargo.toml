@@ -5,7 +5,7 @@ license = "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT"
 authors = ["Luke D Jones <luke@ljones.dev>"]
 edition = "2024"
 readme = "README.md"
-repository = "https://gitlab.com/flukejones/logind-zbus"
+repository = "https://github.com/eatradish/logind-zbus-tokio"
 homepage = "https://gitlab.com/flukejones/logind-zbus"
 documentation = "https://docs.rs/logind-zbus"
 description = "A dbus client (using zbus) for logind"
@@ -16,6 +16,7 @@ categories = ["os::unix-apis"]
 default = ["async-io", "blocking-api"]
 async-io = ["zbus/async-io"]
 blocking-api = ["zbus/blocking-api"]
+tokio = ["zbus/tokio"]
 
 [dependencies]
 serde = "1.0"
@@ -23,3 +24,11 @@ zbus = { version = "5.7.0", default-features = false }
 
 [dev-dependencies]
 futures-lite = "2.5.0"
+
+[[example]]
+name = "list_active_graphical"
+required-features = ["blocking"]
+
+[[example]]
+name = "unlock_signal"
+required-features = ["blocking"]
