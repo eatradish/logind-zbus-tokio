@@ -78,6 +78,7 @@ pub enum SessionClass {
     User,
     Greeter,
     LockScreen,
+    Manager,
 }
 enum_impl_serde_str!(SessionClass);
 impl_try_from_owned_as_str!(SessionClass);
@@ -85,6 +86,7 @@ enum_impl_str_conv!(SessionClass, {
     "user": User,
     "greeter": Greeter,
     "lock-screen": LockScreen,
+    "manager": Manager,
 });
 
 /// State of a session
